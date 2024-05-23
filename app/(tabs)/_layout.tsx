@@ -1,37 +1,78 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import Colors from "@/constants/Colors";
+import { AntDesign, Entypo, FontAwesome, Ionicons } from "@expo/vector-icons";
+import { Tabs, useSegments } from "expo-router";
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import reelsIcon from "@/assets/images/ui/instagram-reels-icon.png";
+import { Image } from "react-native";
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+const TabsLayout = () => {
+
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarShowLabel: false,
         headerShown: false,
-      }}>
+        tabBarHideOnKeyboard: true,
+
+      }}
+    
+    >
       <Tabs.Screen
-        name="index"
+        name="home/index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+          tabBarIcon: ({ size, color }) => (
+            <Entypo name="home" size={24} color="black" />
           ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="search/index"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+          tabBarIcon: ({ size, color }) => (
+            <AntDesign name="search1" size={24} color="black" />
+          ),
+          headerShown: false,
+        }}
+      />
+      <Tabs.Screen
+        name="upload/index"
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <Entypo name="squared-plus" size={24} color="black" />
           ),
         }}
       />
+      <Tabs.Screen
+        name="reels/index"
+        options={{
+          title: "Chats",
+          tabBarIcon: ({ size, color }) => (
+            <Image
+              source={reelsIcon}
+              style={{
+                padding: 10,
+                height: 10,
+                width: 10,
+              }}
+            />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="profile/index"
+        options={{
+          title: "Settings",
+          tabBarIcon: ({ size, color }) => (
+            <FontAwesome name="user-circle" size={24} color="black" />
+          ),
+          headerShown: false,
+        }}
+      />
+    
     </Tabs>
   );
-}
+};
+
+export default TabsLayout;
