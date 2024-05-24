@@ -38,6 +38,7 @@ const TabsLayout = () => {
                   paddingHorizontal: 10,
                   flexDirection: "row",
                   gap: 20,
+                  alignItems:"center"
                 }}
               >
                 <TouchableOpacity onPress={()=>console.log("fav")}>
