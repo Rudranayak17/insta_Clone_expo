@@ -34,58 +34,58 @@ const nestedImageData = Array.from({ length: 20 }, (_, index) => ({
 // Reusable Component
 
 interface ImageCardProps {
-    src: ImageSourcePropType;
-  }
-  
-  const ImageCard: React.FC<ImageCardProps> = ({ src }) => (
-    <View style={styles.cardContainer}>
-      <Image source={src} style={styles.cardImage} />
-      <View style={styles.iconContainer}>
-        <AntDesign name="hearto" size={24} color="black" />
-        <FontAwesome name="comment-o" size={24} color="black" />
-        <Feather name="send" size={24} color="black" />
-      </View>
-      <Text style={styles.title}>Title</Text>
-      <Text style={styles.description}>This is a description</Text>
+  src: ImageSourcePropType;
+}
+
+const ImageCard: React.FC<ImageCardProps> = ({ src }) => (
+  <View style={styles.cardContainer}>
+    <Image source={src} style={styles.cardImage} />
+    <View style={styles.iconContainer}>
+      <AntDesign name="hearto" size={24} color="black" />
+      <FontAwesome name="comment-o" size={24} color="black" />
+      <Feather name="send" size={24} color="black" />
     </View>
-  );
+    <Text style={styles.title}>Title</Text>
+    <Text style={styles.description}>This is a description</Text>
+  </View>
+);
 
 // Main Component
 const Index = () => {
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      style={{
-        backgroundColor: "white",
-      }}
-    >
-      <View style={styles.container}>
-        <FlatList
-          data={imageData}
-          keyExtractor={(item) => item.id}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.horizontalList}
-          renderItem={({ item }) => (
-            <TouchableOpacity>
-              <LinearGradient
-                colors={["#CA1D7E", "#E35157", "#F2703F"]}
-                style={styles.gradient}
-              >
-                <View style={styles.imageContainer}>
-                  <Image source={item.src} style={styles.image} />
-                </View>
-              </LinearGradient>
-            </TouchableOpacity>
-          )}
-        />
-        <FlatList
-          data={nestedImageData}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <ImageCard src={item.src} />}
-        />
-      </View>
-    </ScrollView>
+    // <ScrollView
+    //   showsVerticalScrollIndicator={false}
+    //   style={{
+    //     backgroundColor: "white",
+    //   }}
+    // >
+    <View style={styles.container}>
+      <FlatList
+        data={imageData}
+        keyExtractor={(item) => item.id}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.horizontalList}
+        renderItem={({ item }) => (
+          <TouchableOpacity>
+            <LinearGradient
+              colors={["#CA1D7E", "#E35157", "#F2703F"]}
+              style={styles.gradient}
+            >
+              <View style={styles.imageContainer}>
+                <Image source={item.src} style={styles.image} />
+              </View>
+            </LinearGradient>
+          </TouchableOpacity>
+        )}
+      />
+      <FlatList
+        data={nestedImageData}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <ImageCard src={item.src} />}
+      />
+    </View>
+    // </ScrollView>
   );
 };
 

@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import instagramText from "@/assets/images/ui/instagram-text-icon.png";
 import { useRouter } from "expo-router";
+import { useLoginMutation } from "@/redux/api/auth/authApiSlice";
 
 // Define props for InputField component
 interface InputFieldProps extends TextInputProps {
@@ -52,9 +53,26 @@ const InputField: React.FC<InputFieldProps> = ({
 };
 
 const Index: React.FC = () => {
+  const [loginUser] = useLoginMutation();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
   const signUpHandler = () => {
     router.navigate("/register");
+  };
+
+  const signInHandler = async () => {
+    try {
+      const resp = await loginUser({ ...{ email, password } });
+      console.log(resp.data?.message);
+      if (resp.error) {
+        console.log(resp.error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    // console.log(resp?.error?.data?.details);
   };
 
   return (
@@ -62,10 +80,14 @@ const Index: React.FC = () => {
       <Image source={instagramText} style={styles.image} />
       <View style={styles.inputContainer}>
         <InputField
+          value={email}
+          onChangeText={(e) => setEmail(e)}
           placeholder="Username or email-address"
           keyboardType="email-address"
         />
         <InputField
+          value={password}
+          onChangeText={(e) => setPassword(e)}
           placeholder="Password"
           secureTextEntry={true}
           icon="eye"
@@ -75,9 +97,7 @@ const Index: React.FC = () => {
           <Text style={styles.forgetPasswordText}>Forget Password?</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.loginButton} onPress={()=>{
-            router.navigate("/home")
-        }}>
+        <TouchableOpacity style={styles.loginButton} onPress={signInHandler}>
           <Text style={styles.loginButtonText}>Log in</Text>
         </TouchableOpacity>
       </View>
